@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Math.game</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="shortcut icon" href="icon.png">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+body{
+    background: #333;
+    font-family: 'DotGothic16', sans-serif;
+    color:aliceblue;
+}
+.whitespace1:after{
+    content: ' ';
+    margin: 3px;
+}
+.whitespace1:before{
+    content: ' ';
+    margin: 3px;
+}
+input {
+    background: transparent;
+    border: turquoise 1px solid;
+    color:white;
+    font-family: 'DotGothic16', sans-serif;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    outline:none;
+}
+input:hover{
+    box-shadow: 0px 0px 50px 0px rgba(64, 225, 208, 0.5);
+    background: turquoise;
+}
+#score:before{
+    content: 'Score: ';
+}
+</style>
+</head>
+<body>
+
+<div style="font-size: 30px; width: 98.41%; background: #222; top:0%; position: absolute; left: 0%; padding: 15px;"><span style="color:#4ebc7c">Math</span><span style="color:#dcdcaa">.game</span></div><br>
+<div style='height: 60px;'></div>
+<a id='meaning1' class="whitespace1"></a><a id='sign1'>+</a><a id='answer1' class="whitespace1">???</a><a>=</a><a id='result1' class="whitespace1"></a><br><br>
+<input type='text' id='text1' placeholder="Answer">
+<input type="button" onclick="check1()" value="Check">
+<input type="button" onclick="generate1()" value="Generate">
+<input type="button" value="Surrender" onclick="Surrender()"><br><br>
+<input onclick="down_sind()" type="button" value="<"><a id='sind_text' class="whitespace1">+</a><input type="button" value=">" onclick="next_sind()">
+<input onclick="down_dif()" type="button" value="<"><a id='dif' class="whitespace1">Normal</a><input type="button" value=">" onclick="next_dif()">
+<input id='in1' type='text' placeholder="text" style="display: none; visibility: hidden;">
+<input id='in2' type='text' placeholder="text" style="display: none; visibility: hidden;" value="0">
+<a id='score'>0</a>
+<div style="font-size: 20px; width: 98.41%; background: #222; top:93.9%; position: absolute; left: 0%; padding: 15px;"><a style="color:#4ebc7c">Made by </a><a style="color:#dcdcaa; text-decoration: none;" href="https://vk.com/kafkazzer">kafkazzer</a></div><br>
+</body>
+<script>
+let meaning1_id = document.getElementById("meaning1");
+let answer1_id = document.getElementById("answer1");
+let result1_id = document.getElementById("result1");
+let text1_id = document.getElementById("text1");
+let sign1_id = document.getElementById("sign1");
+let sind_text_id = document.getElementById("sind_text");
+let dif_id = document.getElementById("dif");
+let score_id = document.getElementById("score");
+let sing = '+';
+let rand1 = 0;
+let differences = 0;
+let score = 0;
+let result = 0;
+let i = 0;
+let i2 = 0;
+let difficulty = 3;
+let t = '';
+let in_1 = document.getElementById("in1");
+let in_2 = 0;
+
+function Surrender(){
+    alert('answer: ' +rand1);
+}
+function check1(){
+    if(text1_id.value == rand1){
+        text1_id.value = '';
+        alert('Сorrectly');
+        generate1();
+        if(difficulty == 1){
+            in_2 = in_2+10;    
+        }
+        if(difficulty == 2){
+            in_2 = in_2+50;    
+        }
+        if(difficulty == 3){
+            in_2 = in_2+100;    
+        }
+        if(difficulty == 4){
+            in_2 = in_2+150;    
+        }
+        if(difficulty == 5){
+            in_2 = in_2+250;    
+        }
+        setTimeout(func1(), 10)
+    }
+    else{
+        text1_id.value = '';
+        alert('Try again');
+    }
+}
+function generate1(){
+    if(difficulty == 1){
+        differences = getRandomInRange(10, 50);
+        rand1 = getRandomInRange(10, 100);
+    }
+    if(difficulty == 2){
+        differences = getRandomInRange(50, 100);
+        rand1 = getRandomInRange(50, 150);
+    }
+    if(difficulty == 3){
+        differences = getRandomInRange(100, 150);
+        rand1 = getRandomInRange(100, 300);
+    }
+    if(difficulty == 4){
+        differences = getRandomInRange(100, 300);
+        rand1 = getRandomInRange(150, 450);
+    }
+    if(difficulty == 5){
+        differences = getRandomInRange(300, 500);
+        rand1 = getRandomInRange(300, 750);
+    }
+    if(sing == '+'){
+        result = rand1 + differences;
+        meaning1_id.innerHTML = differences;
+        result1_id.innerHTML = result;
+    }
+    if(sing == '*'){
+        result = rand1 * differences;
+        meaning1_id.innerHTML = differences;
+        result1_id.innerHTML = result;
+    }
+    if(sing == '-'){
+        result = rand1 - differences;
+        meaning1_id.innerHTML = differences;
+        result1_id.innerHTML = result;
+    }
+}
+generate1();
+function getRandomInRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function next_dif(){
+    difficulty++
+    t = '';
+    i = 0;
+    dif_id.innerHTML = '';
+    in_1.value = '';
+    if(difficulty == 1){
+        in_1.value = 'Сhild';
+    }
+    if(difficulty == 2){
+        in_1.value = 'Easy';
+    }
+    if(difficulty == 3){
+        in_1.value = 'Normal';
+    }
+    if(difficulty == 4){
+        in_1.value = 'Hard';
+    }
+    if(difficulty == 5){
+        in_1.value = 'Genius';
+        func();
+    }
+    if(difficulty == 6){
+        difficulty = 1;
+        in_1.value = 'Сhild';
+    }
+    func();
+    generate1();
+}
+
+function down_dif(){
+    difficulty--;
+    t = '';
+    i = 0;
+    dif_id.innerHTML = '';
+    in_1.value = '';
+    if(difficulty == 1){
+        in_1.value = 'Сhild';
+    }
+    if(difficulty == 2){
+        in_1.value = 'Easy';
+    }
+    if(difficulty == 3){
+        in_1.value = 'Normal';
+    }
+    if(difficulty == 4){
+        in_1.value = 'Hard';
+    }
+    if(difficulty == 5){
+        in_1.value = 'Genius';
+        func();
+    }
+    if(difficulty == 0){
+        difficulty = 5;
+        in_1.value = 'Genius';
+    }
+    func();
+    generate1();
+}
+
+function next_sind(){
+    if(sing == '+'){
+        sind_text_id.innerHTML = '-';
+        sign1_id.innerHTML = '-';
+        sing = '-';
+    }
+    else{
+    if(sing == '-'){
+        sind_text_id.innerHTML = '*';
+        sign1_id.innerHTML = '*';
+        sing = '*';
+    }
+    else{
+    if(sing == '*'){
+        sind_text_id.innerHTML = '+';
+        sign1_id.innerHTML = '+';
+        sing = '+';
+    }
+    }
+    }
+    generate1();
+}
+
+function down_sind(){
+    if(sing == '+'){
+        sind_text_id.innerHTML = '*';
+        sign1_id.innerHTML = '*';
+        sing = '*';
+    }
+    else{
+    if(sing == '-'){
+        sind_text_id.innerHTML = '+';
+        sign1_id.innerHTML = '+';
+        sing = '+';
+    }
+    else{
+    if(sing == '*'){
+        sind_text_id.innerHTML = '-';
+        sign1_id.innerHTML = '-';
+        sing = '-';
+    }
+    }
+    }
+    generate1();
+}
+
+function func() { 
+    setTimeout(function gg1() {
+    if (i < in_1.value.length) {
+	func();
+    t = t + in_1.value[i];
+    dif_id.innerHTML = t;
+    i++;
+	}
+}, 25)
+}
+
+function func1() {      
+    setTimeout(function gg1() {
+    if (i2 < in_2) {  
+	func1();
+    i2++;
+    score_id.innerHTML = i2;       
+	}               
+}, 10)
+}
+</script>
+</html>
